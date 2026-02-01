@@ -1,0 +1,391 @@
+:root {
+  --whisper: #fff8f0;
+  --blush: #ffe5e5;
+  --sunset: #ffb5b5;
+  --dusk: #d4a5a5;
+  --twilight: #9d8189;
+  --midnight: #4a4a4a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Karla", sans-serif;
+  background: var(--whisper);
+  color: var(--midnight);
+  overflow-x: hidden;
+}
+
+.story-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+/* Hero Section */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(to bottom, var(--whisper) 0%, var(--blush) 100%);
+}
+
+.hero-title {
+  font-family: "Crimson Text", serif;
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 400;
+  color: var(--twilight);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease-out 0.3s forwards;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.5rem, 4vw, 1.3rem);
+  color: var(--dusk);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+  font-style: italic;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease-out 0.6s forwards;
+}
+
+.hero-section p {
+  font-size: clamp(0.5rem, 1vw, 1.3rem);
+  color: var(--dusk);
+  font-weight: 100;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+  font-style: italic;
+  opacity: 0;
+  animation: fadeInUp 2.5s ease-out 1.5s forwards;
+  position: relative;
+  margin-top: 200px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Story Blocks - Alternating Layouts */
+.story-block {
+  margin: 8rem 0;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Layout 1: Single Polaroid Center with Text Below */
+.layout-single-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.polaroid {
+  background: white;
+  padding: 1rem;
+  padding-bottom: 3.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: rotate(-2deg);
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+  position: relative;
+  width: 400px;
+  height: 500px;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.polaroid-caption {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Crimson Text", serif;
+  font-style: italic;
+  color: var(--twilight);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.love-text {
+  font-family: "Crimson Text", serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.6;
+  color: var(--twilight);
+  text-align: center;
+  max-width: 700px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Layout 2: Two Polaroids Side by Side */
+.layout-double {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 4rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.polaroid-stack {
+  position: relative;
+}
+
+.polaroid-stack .polaroid:first-child {
+  position: relative;
+  z-index: 2;
+  transform: rotate(7deg);
+}
+
+.polaroid-stack .polaroid:last-child {
+  position: absolute;
+  top: 0.5rem;
+  left: -60%;
+  z-index: 1;
+  transform: rotate(-15deg);
+  opacity: 0.85;
+}
+
+/* Layout 3: Text Left, Polaroid Right */
+.layout-split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.layout-split .love-text {
+  text-align: left;
+}
+
+.layout-split .polaroid {
+  transform: rotate(3deg);
+}
+
+/* Layout 4: Scattered Polaroids with Center Text */
+.layout-scattered {
+  position: relative;
+  padding: 5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scattered-polaroids {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.scattered-polaroids .polaroid {
+  position: absolute;
+  width: 200px;
+  height: 280px;
+  pointer-events: all;
+}
+
+.scattered-polaroids .polaroid:nth-child(1) {
+  bottom: 0;
+  left: 26%;
+  transform: rotate(-15deg);
+}
+
+.scattered-polaroids .polaroid:nth-child(2) {
+  bottom: 10%;
+  right: 27%;
+  transform: rotate(12deg);
+}
+
+.scattered-polaroids .polaroid:nth-child(3) {
+  bottom: 0%;
+  left: 40%;
+  transform: rotate(0deg);
+}
+
+.scattered-polaroids .polaroid img {
+  max-width: 100%;
+}
+
+.layout-scattered .love-text {
+  position: relative;
+  top: 170px;
+  z-index: 10;
+  font-size: 2rem;
+  background: var(--twilight);
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+/* Layout 5: Grid of Small Polaroids */
+.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+  justify-items: center;
+}
+
+.layout-grid .polaroid {
+  transform: rotate(0deg);
+}
+
+.layout-grid .polaroid:nth-child(odd) {
+  transform: rotate(-3deg);
+}
+
+.layout-grid .polaroid:nth-child(even) {
+  transform: rotate(3deg);
+}
+
+.layout-grid .polaroid {
+  width: 280px;
+  height: 350px;
+}
+
+/* Divider Hearts */
+.heart-divider {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--sunset);
+  margin: 6rem 0;
+  opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .layout-double,
+  .layout-split,
+  .layout-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .layout-split .love-text {
+    text-align: center;
+  }
+
+  .scattered-polaroids .polaroid {
+    width: 150px;
+  }
+
+  .polaroid-stack .polaroid:last-child {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+
+  .story-container {
+    padding: 2rem 1rem;
+  }
+
+  .story-block {
+    margin: 5rem 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .scattered-polaroids .polaroid {
+    width: 150px;
+    height: 210px;
+  }
+
+  .scattered-polaroids .polaroid:nth-child(1) {
+    left: 0%;
+  }
+
+  .scattered-polaroids .polaroid:nth-child(2) {
+    right: 0%;
+  }
+}
+
+@media (max-width: 768px) {
+  .scattered-polaroids {
+    position: relative;
+  }
+
+  .scattered-polaroids .polaroid {
+    position: relative;
+    width: 150px;
+    height: 210px;
+    margin: 1rem auto;
+  }
+
+  .layout-scattered {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .layout-scattered .love-text {
+    background: var(--twilight);
+    position: relative;
+    top: 15px;
+    color: #ffffff;
+    padding: 1rem;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scattered-polaroids .polaroid {
+    width: 120px;
+    height: 170px;
+  }
+}
+
+/* Final Message Box */
+.final-message-box {
+  background: var(--twilight);
+  color: #ffffff;
+  padding: 0.6rem 1.5rem;
+  border-radius: 35px;
+  font-size: 3rem;
+  font-family: "Crimson Text", serif;
+  font-weight: 400px;
+  font-style: italic;
+  text-align: center;
+  display: inline-block;
+  margin-top: -3rem;
+}
